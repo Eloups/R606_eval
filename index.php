@@ -1,11 +1,25 @@
 <?php
 
 require_once './vendor/autoload.php';
+require_once './src/Database.php';
 
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
+$db = new Database();
+$db->initDatabase();
+
+$texts_to_insert = ['azerty', 'abcdef', 'xyz', '123456789'];
+
+$db->initDatabase();
+
+foreach ($texts_to_insert as $text) {
+    $db->insertText($text);
+}
+
+$data = $db->getAllTexts();
 ?>
 
 <!DOCTYPE html>
@@ -28,30 +42,6 @@ $dotenv->load();
             Pensez à inviter cdiiv sur votre projet Github</p>
     </header>
 
-    <?php
-    try {
-        $url = "mysql:host=" . $_ENV['DB_HOST'] . ";dbname=" . $_ENV['DB_NAME'] . ";charset=utf8mb4";
-        $p = new PDO($url, $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
-
-        $p->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $p->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        echo 'Erreur lors de la connexion à la BDD : ' . $e->getMessage();
-        exit();
-    }
-
-    try {
-        $d = $p->query("SELECT id,text FROM db_table")->fetchAll(PDO::FETCH_ASSOC);
-    } catch (Exception $e) {
-        $p->prepare('CREATE TABLE IF NOT EXISTS db_table (id INT PRIMARY KEY AUTO_INCREMENT, text VARCHAR(100) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4')->execute();
-        $p->prepare('INSERT INTO db_table (text) VALUES (:text)')->execute([':text' => 'azerty']);
-        $p->prepare('INSERT INTO db_table (text) VALUES (:text)')->execute([':text' => 'abcdef']);
-        $p->prepare('INSERT INTO db_table (text) VALUES (:text)')->execute([':text' => 'xyz']);
-        $p->prepare('INSERT INTO db_table (text) VALUES (:text)')->execute([':text' => '123456789']);
-        $d = $p->query('SELECT id,text FROM db_table')->fetchAll(PDO::FETCH_ASSOC);
-    }
-    ?>
-
     <table>
         <thead style="font-weight: bold;">
             <tr>
@@ -62,11 +52,11 @@ $dotenv->load();
         <tbody>
             <?php $i = 0;
             while (true) {
-                if (!key_exists($i, $d))
+                if (!key_exists($i, $data))
                     break; ?>
                 <tr>
-                    <td style="border: solid black 1px"><?= $d[$i]['id'] ?></td>
-                    <td style="border: solid black 1px"><?= $d[$i]['text'] ?></td>
+                    <td style="border: solid black 1px"><?= $data[$i]['id'] ?></td>
+                    <td style="border: solid black 1px"><?= $data[$i]['text'] ?></td>
                 </tr>
                 <?php $i++;
             } ?>
