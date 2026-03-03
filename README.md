@@ -40,3 +40,7 @@ Pour lancer le linter de PHPStan, vous pouvez lancer la commande suivante:
 ```bash
 composer lint
 ```
+
+## Base de donnée
+
+Au besoin, vous pouvez retrouver un script SQL pour l'initialisation de la base de données avec quelques données de tests au chemin suivant: `./_docker/db/init.sql`.
