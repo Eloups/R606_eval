@@ -44,6 +44,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
+    - name: Install PHP extensions
+      run: sudo apt-get install -y php-mysql
+
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
