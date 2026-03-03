@@ -49,10 +49,10 @@ jobs:
 
     - name: Create .env file
       run: |
-        echo "DB_HOST=mysql" >> $GITHUB_ENV
-        echo "DB_NAME=ma_bdd" >> $GITHUB_ENV
-        echo "DB_USER=root" >> $GITHUB_ENV
-        echo "DB_PASSWORD=db_pwd" >> $GITHUB_ENV
+        echo "DB_HOST=mysql" >> .env
+        echo "DB_NAME=ma_bdd" >> .env
+        echo "DB_USER=root" >> .env
+        echo "DB_PASSWORD=db_pwd" >> .env
       
     - name: Run linter
       run: composer lint
