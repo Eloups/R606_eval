@@ -1,5 +1,6 @@
 {
     "name": "eloud/tp-eval",
+    "description": "",
     "require-dev": {
         "codeception/codeception": "^5.3",
         "codeception/module-phpbrowser": "*",
