@@ -1,3 +1,13 @@
+<?php
+
+require_once './vendor/autoload.php';
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -20,7 +30,8 @@
 
     <?php
     try {
-        $p = new PDO("mysql:host=db;dbname=ma_bdd;charset=utf8mb4", 'root', 'db_pwd');
+        $url = "mysql:host=" . $_ENV['DB_HOST'] . ";dbname=" . $_ENV['DB_NAME'] . ";charset=utf8mb4";
+        $p = new PDO($url, $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
 
         $p->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $p->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
