@@ -1,0 +1,36 @@
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./_docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - .:/var/www/web
+    depends_on:
+      php:
+        condition: service_started
+    networks:
+      - net1
+  php:
+    build:
+      context: .
+      dockerfile: ./_docker/php-fpm/Dockerfile
+    volumes:
+    - .:/var/www/web
+    networks:
+      - net1
+  
+  db:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: db_pwd
+      MYSQL_DATABASE: ma_bdd
+    networks:
+      - net1
+  
+networks:
+  net1:
+    driver: bridge 
