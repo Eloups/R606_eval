@@ -1,4 +1,11 @@
 {
     "name": "eloud/tp-eval",
-    "require": {}
+    "require-dev": {
+        "codeception/codeception": "^5.3",
+        "codeception/module-phpbrowser": "*",
+        "codeception/module-asserts": "^3.3"
+    },
+    "scripts": {
+        "test": "php vendor/bin/codecept run --steps"
+    }
 }
