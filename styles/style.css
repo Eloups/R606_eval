@@ -1,0 +1,18 @@
+.crimson {
+    color: crimson
+}
+
+.big-message {
+    font-weight: bold;
+    border: solid 2px crimson;
+    padding: 5px;
+    width: fit-content;
+}
+
+thead {
+    font-weight: bold;
+}
+
+td {
+    border: solid black 1px
+}
