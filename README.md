@@ -25,3 +25,9 @@ Pour lancer les tests vous pouvez lancer la commande suivante:
 ```bash
 composer test
 ```
+
+Pour lancer le linter de PHPStan, vous pouvez lancer la commande suivante:
+
+```bash
+composer lint
+```

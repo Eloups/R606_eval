@@ -3,9 +3,11 @@
     "require-dev": {
         "codeception/codeception": "^5.3",
         "codeception/module-phpbrowser": "*",
-        "codeception/module-asserts": "^3.3"
+        "codeception/module-asserts": "^3.3",
+        "phpstan/phpstan": "^2.1"
     },
     "scripts": {
-        "test": "php vendor/bin/codecept run --steps"
+        "test": "php vendor/bin/codecept run --steps",
+        "lint": "vendor/bin/phpstan analyse index.php src"
     }
 }
