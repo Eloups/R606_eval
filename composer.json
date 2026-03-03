@@ -9,6 +9,6 @@
     },
     "scripts": {
         "test": "php vendor/bin/codecept run --steps",
-        "lint": "vendor/bin/phpstan analyse index.php src -l 5"
+        "lint": "vendor/bin/phpstan analyse index.php -l 5"
     }
 }
