@@ -22,6 +22,17 @@ jobs:
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      app:
+        image: php:8.4-apache
+        ports:
+          - 8000:80
+        env:
+          DB_HOST: mysql
+          DB_NAME: ma_bdd
+          DB_USER: root
+          DB_PASSWORD: db_pwd
+        volumes:
+          - .:/var/www/html
 
     steps:
     - uses: actions/checkout@v4
@@ -40,16 +51,6 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
-
-    - name: Create .env file
-      run: |
-        echo "DB_HOST=db" >> $GITHUB_ENV
-        echo "DB_NAME=ma_bdd" >> $GITHUB_ENV
-        echo "DB_USER=root" >> $GITHUB_ENV
-        echo "DB_PASSWORD=db_pwd" >> $GITHUB_ENV
-      
-    - name: Start PHP
-      run: php -S 127.0.0.1:8000
 
     - name: Run linter
       run: composer lint
