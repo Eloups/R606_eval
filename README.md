@@ -44,3 +44,10 @@ composer lint
 ## Base de donnée
 
 Au besoin, vous pouvez retrouver un script SQL pour l'initialisation de la base de données avec quelques données de tests au chemin suivant: `./_docker/db/init.sql`.
+
+## TODO
+
+- [ ] Ajout de tests unitaires de la classe Database
+- [ ] Faire un CD de déploiment sur push on master et avec CI validé
+- [ ] Initialisation automatique de la base de données dans Docker
+- [ ] Ajouter un système de migration
