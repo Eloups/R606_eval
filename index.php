@@ -50,16 +50,12 @@ $data = $db->getAllTexts();
             </tr>
         </thead>
         <tbody>
-            <?php $i = 0;
-            while (true) {
-                if (!key_exists($i, $data))
-                    break; ?>
+            <?php foreach ($data as $text) { ?>
                 <tr>
-                    <td style="border: solid black 1px"><?= $data[$i]['id'] ?></td>
-                    <td style="border: solid black 1px"><?= $data[$i]['text'] ?></td>
+                    <td style="border: solid black 1px"><?= $text['id'] ?></td>
+                    <td style="border: solid black 1px"><?= $text['text'] ?></td>
                 </tr>
-                <?php $i++;
-            } ?>
+            <?php } ?>
         </tbody>
     </table>
 </body>
