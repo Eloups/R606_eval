@@ -10,9 +10,18 @@ permissions:
   contents: read
 
 jobs:
-  build:
-
+  tests:
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: db_pwd
+          MYSQL_DATABASE: ma_bdd
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
     - uses: actions/checkout@v4
@@ -32,5 +41,15 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Run test suite
+    - name: Create .env file
+      run: |
+        echo "DB_HOST=db" >> $GITHUB_ENV
+        echo "DB_NAME=ma_bdd" >> $GITHUB_ENV
+        echo "DB_USER=root" >> $GITHUB_ENV
+        echo "DB_PASSWORD=db_pwd" >> $GITHUB_ENV
+
+    - name: Run linter
       run: composer lint
+    
+    - name: Run test suite
+      run: composer test
